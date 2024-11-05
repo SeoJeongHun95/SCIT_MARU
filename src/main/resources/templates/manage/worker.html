@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr"
+	data-theme="theme-default" data-assets-path="../assets/"
+	data-template="vertical-menu-template-free"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+<title>사원 관리</title>
+
+<meta name="description" content="" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"
+	href="assets/img/favicon/favicon.ico" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+	rel="stylesheet" />
+
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+<!-- Core CSS -->
+<link rel="stylesheet" href="../assets/vendor/css/core_j.css"
+	class="template-customizer-core-css" />
+<link rel="stylesheet" href="../assets/vendor/css/theme-default.css"
+	class="template-customizer-theme-css" />
+<link rel="stylesheet" href="../assets/css/demo.css" />
+
+<!-- Vendors CSS -->
+<link rel="stylesheet"
+	href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+<!-- Page CSS -->
+
+<!-- Helpers -->
+<script src="../assets/vendor/js/helpers.js"></script>
+
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="../assets/js/config.js"></script>
+
+</head>
+
+
+<body>
+
+	<div class="layout">
+		<nav
+			class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center  bg-navbar-theme"
+			id="layout-navbar">
+			<div class="app-brand">
+				<a th:href="@{/dashboard}" class="app-brand-link"> <span
+					class="app-brand-logo"> <img src="../images/maru_logo.png"
+						class="maru_logo" alt="">
+				</span> <span class="app-brand-text demo menu-text fw-bolder ms-2">마루건설</span>
+				</a>
+			</div>
+
+			<div class="navbar-nav-right d-flex align-items-center"
+				id="navbar-collapse">
+				<ul class="navbar-nav flex-row align-items-center ms-auto">
+					<!-- Place this tag where you want the button to render. -->
+					<!-- 여기에 넣고싶은 버튼 넣으면 됨. -->
+					<li class="nav-item lh-1 me-3">
+					
+					<!-- 환영합니다 넣을 부분 -->	
+						<a>박수연 소장님 환영합니다</a>
+						
+					</li>
+
+					<!-- 프사 있는 부분 -->
+					<!-- User -->
+					<!-- 눌렀을 때, 내리려면 li안에 dropdown 쓰면 될듯 -->
+					<li class="nav-item navbar-dropdown dropdown-user dropdown"><a
+						class="nav-link dropdown-toggle hide-arrow"
+						href="javascript:void(0);" data-bs-toggle="dropdown"> <!-- online, offline으로 상태 변화가능 -->
+							<div class="avatar avatar-online">
+								<img src="../assets/img/avatars/profile.jpg" alt
+									class="w-px-40 h-auto rounded-circle" />
+							</div>
+					</a>
+
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="#">
+									<div class="d-flex">
+										<div class="flex-shrink-0 me-3">
+											<div class="avatar avatar-online">
+												<img src="../assets/img/avatars/1.png" alt
+													class="w-px-40 h-auto rounded-circle" />
+											</div>
+										</div>
+										<div class="flex-grow-1">
+											<span class="fw-semibold d-block">John Doe</span> <small
+												class="text-muted">Admin</small>
+										</div>
+									</div>
+							</a></li>
+							<!-- 구분자 -->
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-user me-2"></i> <span class="align-middle">My
+										Profile</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-cog me-2"></i> <span class="align-middle">Settings</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <span
+									class="d-flex align-items-center align-middle"> <i
+										class="flex-shrink-0 bx bx-credit-card me-2"></i> <span
+										class="flex-grow-1 align-middle">Billing</span> <span
+										class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+								</span>
+							</a></li>
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="auth-login-basic.html">
+									<i class="bx bx-power-off me-2"></i> <span class="align-middle">Log
+										Out</span>
+							</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+
+
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<div class="mb-5">
+			
+			
+				<!--대시보드-->
+				<nav
+					class="navbar navbar-example navbar-expand-lg nav_white_custom bg-white ">
+					<div class="container-fluid">
+						<a class="dash_board_custom" th:href="@{/dashboard}">대시보드</a>
+						<button class="navbar-toggler" type="button"
+							data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
+							aria-controls="navbar-ex-2" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbar-ex-2">
+							<div class="navbar-nav me-auto">
+								<a class="nav-item dash_board_custom" th:href="@{/project/allProjectsInfo}">프로젝트관리</a>
+								<a class="nav-item dash_board_custom" th:href="@{/dashboard/sign}">결재상황</a>
+								<a class="nav-item dash_board_custom" th:href="@{/dashboard/post}">공고현황</a>
+								<a class="nav-item nav-link dropdown-toggle hide-arrow dash_board_custom" data-bs-toggle="dropdown">관리페이지</a>
+								<ul class="dropdown-menu dropdown-menu-mk ">
+		                          	<li>
+	                           			<a th:href="@{/manage/funds}" class="dropdown-item d-flex align-items-center"
+		     							><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자금 관리</a>
+		                           </li>
+		                           <li>
+		                             <a th:href="@{/manage/material}" class="dropdown-item d-flex align-items-center"
+		                               ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자재 관리</a>
+		                           </li>
+		                           <li>
+		                             <a th:href="@{/manage/worker}" class="dropdown-item d-flex align-items-center"
+		                               ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>인력 관리</a>
+		                           </li>
+		                      	</ul>
+							</div>
+						</div>
+					</div>
+				</nav>
+
+				<div class="margin_custom"></div>
+			<!-- 대시보드 Navbar 끝 -->
+			<!-- Contextual Classes -->
+
+              <div class="card">
+                <div class="card-header">
+                	<span style="margin-left: 50px; margin-right: -50px">사원 인적사항</span>
+                 		<span style="padding: 0 850px 0 80px;">
+                		<span class="bx bx-search bx-flashing" style="margin-left:35px;"></span>
+                		<input type="text" placeholder="사원명 검색" 
+                				style="width:140px; text-align:center; margin:5px;border:0;"></input></span>
+                	   <button
+                          type="button"
+                          class="btn btn-sm rounded-pill btn-primary"
+                          data-bs-toggle="modal"
+                          data-bs-target="#insertWorker"
+                        >
+                          사원 추가
+                        </button>
+                     </div>           	
+
+                <div class="card-body">
+                  <table class="table" style="text-align:center;">
+                    <thead>
+                      <tr class="table-primary">
+                      	<th>사원번호</th>
+                        <th>사원명</th>
+                        <th>아이디</th>
+                        <th>부서명</th>
+                        <th>직급</th>
+                        <th>삭제</th>
+                        <th>수정</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+
+                      <!-- 모델값 잘 들어오나 확인 (완)-->
+                      <tr th:each="list:${workerList}">
+                      	<td th:text="${list.worker_num}"></td>
+                        <td>
+                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong th:text="${list.name}"></strong>
+                        </td>
+                        <td th:text="${list.id}"></td>
+                        <td th:each="dList:${divisionList}" 
+                        	th:if="${list.division_num==dList.division_num}" 
+                        	th:text="${dList.division_name}"></td>
+                        <td>
+                        <span class="badge bg-label-warning me-1"
+                        	  th:each="pList:${positionList}"
+                        	  th:if="${list.position_num==pList.position_num}" 
+                        	  th:text="${pList.position_name}"></span></td>
+                        <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" 
+                              	  th:workernum="${list.worker_num}"
+                              	  onclick="deleteWorker(this.getAttribute('workernum'))"
+                                ><i class="bx bx-trash me-1"></i>삭제</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" 
+                              	  th:workernum="${list.worker_num}"
+                              	  onclick="updateWorker(this.getAttribute('workernum'))"
+                                ><i class="bx bx-edit-alt me-1"></i>수정</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+              </div>
+              <!--/ Contextual Classes -->
+				
+                <!-- 사원추가 모달창 --> 
+                       <!-- Modal -->
+                        <div class="modal fade" id="insertWorker" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="modalCenterTitle">사원 추가 입력창</h5>
+                                <button
+                                  type="button"
+                                  class="btn-close"
+                                  data-bs-dismiss="modal"
+                                  aria-label="Close"
+                                ></button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="row">
+                                  <div class="col mb-2">
+                                    <label for="name" class="form-label">이름</label>
+                                    <input
+                                      type="text"
+                                      id="name"
+                                      class="form-control"
+                                      placeholder="이름을 입력하세요"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="row g-2">
+                                  <div class="col mb-2">
+                                    <label for="id" class="form-label">ID</label>
+                                    <input
+                                      type="text"
+                                      id="id"
+                                      class="form-control"
+                                      placeholder="아이디를 입력하세요"
+                                    />
+                                  </div>
+                                  <div class="col mb-2">
+                                    <label for="password" class="form-label">PASSWORD</label>
+                                    <input
+                                      type="password"
+                                      id="password"
+                                      class="form-control"
+                                      placeholder="비밀번호를 입력하세요"
+                                    />
+                                  </div>
+                                </div>
+								<div class="row">
+                                 <div class="col mb-2">
+			                        <label for="division" class="form-label">부서 선택</label>
+			                        <select class="form-select" id="division_num" name="division_num" aria-label="Default select example">
+			                          <option value="1" selected>건축팀</option>
+			                          <option value="2">토목팀</option>
+			                          <option value="3">전기팀</option>
+			                          <option value="4">기계팀</option>
+			                          <option value="5">영업기획팀</option>
+			                          <option value="6">자재팀</option>
+			                          <option value="7">인사노무팀</option>
+			                          <option value="8">경리팀</option>
+			                          <option value="9">임원</option>
+			                        </select>                                 
+                                 </div>                                
+                                </div>                             
+                                <div class="row">
+                                 <div class="col mb-2">
+			                        <label for="position" class="form-label">직급 선택</label>
+			                        <select class="form-select" id="position_num" name="position_num" aria-label="Default select example">
+			                          <option value="1">소장</option>
+			                          <option value="2">품질관리자</option>
+			                          <option value="3">안전관리자</option>
+			                          <option value="4">공사부장</option>
+			                          <option value="5">공무부장</option>
+			                          <option value="6">관리부장</option>
+			                          <option value="7">건축팀장</option>
+			                          <option value="8">토목팀장</option>
+			                          <option value="9">전기팀장</option>
+			                          <option value="10">기계팀장</option>
+			                          <option value="11">영업기획팀장</option>
+			                          <option value="12">자재팀장</option>
+			                          <option value="13">인사노무팀장</option>
+			                          <option value="14">경리팀장</option>
+			                          <option value="15" selected>사원</option>
+			                        </select>                                 
+                                 </div>                                
+                                </div>                                
+								<div class="row">
+                                  <div class="col mb-2">
+                                    <label for="phone" class="form-label">PHONE</label>
+                                    <input
+                                      type="text"
+                                      id="phone"
+                                      class="form-control"
+                                      placeholder="010-xxxx-xxxx 로 입력하세요"
+                                    />
+                                  </div>
+                                </div>                                
+                                <div class="row">
+                                  <div class="col mb-2">
+                                    <label for="salary" class="form-label">월급</label>
+                                    <input
+                                      type="number"
+                                      id="salary"
+                                      class="form-control"
+                                      placeholder="단위 : 만(원)"
+                                    />
+                                  </div>
+                                </div>   
+
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                  취소
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="insert()">저장</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                <!-- 사원추가 모달창 끝 -->
+			</div>
+		</div>
+	</div>
+	
+	
+
+    <!-- 내가 만든 JS -->
+	<script>
+    $(document).ready(function(){
+    	deleteWorker();
+    	updateWorker();
+    });
+	
+    function deleteWorker(workernum){
+    	let num= workernum;
+    	//alert(num);  	
+    	
+    	$.ajax({
+    		url:'deleteWorker',
+    		type:'get',
+    		data:{num: num},
+    		success: function(){
+    			alert('삭제에 성공했습니다.');
+    		},
+    		error: function(){
+    			alert('삭제에 실패했습니다.');
+    		}
+    	});	
+    	
+    } 
+    
+    function updateWorker(workernum){
+    	let num= workernum;
+    	alert(num);  	
+    	
+    	
+    	
+    } 
+	
+    
+    function insert(){
+    	let name=$('#name').val();
+    	let id=$('#id').val();
+    	let password=$('#password').val();
+    	let division_num=$('#division_num').val();
+    	let position_num=$('#position_num').val();
+    	let phone=$('#phone').val();
+    	let salary=$('#salary').val();    	
+    	
+    	if(name == '' || id == '' || password == ''	|| division_num == ''
+    	|| position_num == ''|| phone == '' || salary == ''){
+    		alert("항목을 반드시 다 입력해 주세요.");
+    		return;
+    	}
+    	
+    	$.ajax({
+    		url:'insertWorker',
+    		type:'post',
+    		data: {
+    			name: $('#name').val()
+    			, id: $('#id').val()
+	    		, password: $('#password').val()
+	    		, division_num: $('#division_num').val()
+	    		, position_num: $('#position_num').val()
+	    		, phone: $('#phone').val()
+	    		, salary: $('#salary').val()
+    		},
+    		success: function(item){
+    			$('#insertWorker').modal('hide');
+    			alert('insertWorker 성공');
+    		},
+    		error:function(){
+    			alert('insertWorker 실패');
+    		}
+    	});
+    	
+    }
+
+    
+	
+	</script>    
+    
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>

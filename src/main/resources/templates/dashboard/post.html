@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr"
+	data-theme="theme-default" data-assets-path="../assets/"
+	data-template="vertical-menu-template-free"
+	xmlns:th="http://thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+<title>공고목록</title>
+
+<meta name="description" content="" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"
+	href="assets/img/favicon/favicon.ico" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+	rel="stylesheet" />
+
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+
+<!-- Core CSS -->
+<link rel="stylesheet" href="../assets/vendor/css/core_j.css"
+	class="template-customizer-core-css" />
+<link rel="stylesheet" href="../assets/vendor/css/theme-default.css"
+	class="template-customizer-theme-css" />
+<link rel="stylesheet" href="../assets/css/demo.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Vendors CSS -->
+<link rel="stylesheet"
+	href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+<!-- excelexport -->
+<script th:src="@{/assets/js/jquery.techbytarun.excelexportjs.js}"></script>
+
+
+<!-- Helpers -->
+<script src="../assets/vendor/js/helpers.js"></script>
+
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="../assets/js/config.js"></script>
+<script>
+	function deletePost(num){
+		if(confirm("공고 목록에서 지우시겠습니까?")){
+		location.href = 'deletePost?post_num=' + num;
+		}
+	}
+
+	function insertProject(post_num){
+		let limitsize = "[[${limitsize}]]";
+		
+		if(limitsize==3){
+			if($('#limitsi').css('display') == 'none'){
+	            $('#limitsi').show();}
+			$('#whole').css('filter','blur(15px)');
+			return;
+		
+		}
+		$.ajax({
+			url : "insertProject",
+			type : 'get',
+			data : {
+				post_num: post_num
+			},
+			success : function(result) {
+				if(result ==0){
+					if($('#sung').css('display') == 'none'){
+			            $('#sung').show();}
+					setTimeout(function(){
+						location.reload();
+						},3000);					
+				}else{
+					if($('#sil').css('display') == 'none'){
+			            $('#sil').show();}
+					setTimeout(function(){
+						location.reload();
+						},3000);
+				}
+		     },
+			error : function() {
+				if($('#err').css('display') == 'none'){
+		            $('#err').show();}
+			}
+		});
+	}
+</script>
+
+</head>
+
+
+<body>
+	<div id="whole">
+	<div class="layout">
+		<nav
+			class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center  bg-navbar-theme"
+			id="layout-navbar">
+			<div class="app-brand">
+				<a th:href="@{/dashboard}" class="app-brand-link"> <span
+					class="app-brand-logo"> <img src="../images/maru_logo.png"
+						class="maru_logo" alt="">
+				</span> <span class="app-brand-text demo menu-text fw-bolder ms-2">마루건설</span>
+				</a>
+			</div>
+
+			<div class="navbar-nav-right d-flex align-items-center"
+				id="navbar-collapse">
+				<ul class="navbar-nav flex-row align-items-center ms-auto">
+					<!-- Place this tag where you want the button to render. -->
+					<!-- 여기에 넣고싶은 버튼 넣으면 됨. -->
+					<li class="nav-item lh-1 me-3">
+						<a>박수연 소장님 확인합니다</a>
+					</li>
+
+					<!-- 프사 있는 부분 -->
+					<!-- User -->
+					<!-- 눌렀을 때, 내리려면 li안에 dropdown 쓰면 될듯 -->
+					<li class="nav-item navbar-dropdown dropdown-user dropdown"><a
+						class="nav-link dropdown-toggle hide-arrow"
+						href="javascript:void(0);" data-bs-toggle="dropdown"> <!-- online, offline으로 상태 변화가능 -->
+							<div class="avatar avatar-online">
+								<img src="../assets/img/avatars/profile.jpg" alt
+									class="w-px-40 h-auto rounded-circle" />
+							</div>
+					</a>
+
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="#">
+									<div class="d-flex">
+										<div class="flex-shrink-0 me-3">
+											<div class="avatar avatar-online">
+												<img src="../assets/img/avatars/1.png" alt
+													class="w-px-40 h-auto rounded-circle" />
+											</div>
+										</div>
+										<div class="flex-grow-1">
+											<span class="fw-semibold d-block">John Doe</span> <small
+												class="text-muted">Admin</small>
+										</div>
+									</div>
+							</a></li>
+							<!-- 구분자 -->
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-user me-2"></i> <span class="align-middle">My
+										Profile</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-cog me-2"></i> <span class="align-middle">Settings</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <span
+									class="d-flex align-items-center align-middle"> <i
+										class="flex-shrink-0 bx bx-credit-card me-2"></i> <span
+										class="flex-grow-1 align-middle">Billing</span> <span
+										class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+								</span>
+							</a></li>
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="auth-login-basic.html">
+									<i class="bx bx-power-off me-2"></i> <span class="align-middle">Log
+										Out</span>
+							</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+		<nav class="layout-navbar navbar container-xxl navbar-detached navbar-example navbar-expand-lg nav_white_custom bg-white mt-3">
+			<div class="container-fluid">
+				<a class="dash_board_custom" th:href="@{/dashboard}">대시보드</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
+					aria-controls="navbar-ex-2" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbar-ex-2">
+					<div class="navbar-nav me-auto">
+						<a class="nav-item dash_board_custom" th:href="@{/project/allProjectsInfo}">프로젝트관리</a>
+						<a class="nav-item dash_board_custom" th:href="@{/dashboard/sign}">결재상황</a>
+						<a class="nav-item dash_board_custom" th:href="@{/dashboard/post}">공고현황</a>
+						<a class="nav-item nav-link dropdown-toggle hide-arrow dash_board_custom" data-bs-toggle="dropdown">관리페이지</a>
+						<ul class="dropdown-menu dropdown-menu-mk ">
+                           	<li>
+                            	<a th:href="@{/manage/funds}" class="dropdown-item d-flex align-items-center"
+      							><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자금 관리</a>
+                            </li>
+                            <li>
+                              <a th:href="@{/manage/material}" class="dropdown-item d-flex align-items-center"
+                                ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자재 관리</a>
+                            </li>
+                            <li>
+                              <a th:href="@{/manage/worker}" class="dropdown-item d-flex align-items-center"
+                                ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>인력 관리</a>
+                            </li>
+                       	</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="margin_custom"></div>
+	</div>
+
+	<!--대시보드-->
+
+	<div class="content-wrapper">
+		<div class="container-xxl flex-grow-1 container-p-y">
+			<div class="mb-5">
+			
+              <!-- Contextual Classes -->
+              <div class="card">
+              <div style="float:right;">
+              <a id="btnExport" href="#" download="">
+					<button id="excel"class="btn btn-outline-primary" type="button"><img th:src="@{/assets/img/elements/excel.png}" alt="" width="30px" height="30px">Excel다운</button>
+			</a>
+			<button id="savePdf" class="btn btn-outline-primary" type="button"><img th:src="@{/assets/img/elements/pdf.jpg}" alt="" width="30px" height="30px">PDF 저장</button>
+             </div>
+				 <div id="exceldown"> 
+                <h5 class="card-header">입찰 공고 목록</h5> 
+                <div class="table-responsive text-nowrap">
+               
+                  <table class="table" id='tblExport'>
+                    <thead>
+                      <tr class="table-primary">
+                        <th style="text-align:center;">공고 번호/차수</th>
+                        <th style="text-align:center;">빌딩 타입</th>
+                        <th style="text-align:center;">공 고 명</th>
+                        <th style="text-align:right;">공사 규모</th>
+                        <th style="text-align:right;">공사 면적</th>
+                        <th style="text-align:right;">수주 비용</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0" th:each="list : ${postList}">
+                      <tr class="table-active">
+                       <td th:text="${list.post_num}" style="text-align:center;"></td>
+                       <td  style="text-align:center;">
+                       	<a th:if="${list.building_type_num}==1"><span class="badge bg-label-primary me-1">아파트</span></a>
+                        <a th:if="${list.building_type_num}==2"><span class="badge bg-label-success me-1">호텔</span></a>
+                        <a th:if="${list.building_type_num}==3"><span class="badge bg-label-danger me-1">지하철</span></a>
+                        <a th:if="${list.building_type_num}==4"><span class="badge bg-label-danger me-1">쇼핑몰</span></a>
+                        <a th:if="${list.building_type_num}==5"><span class="badge bg-label-warning me-1">공연장</span></a>
+                        <a th:if="${list.building_type_num}==6"><span class="badge bg-label-info me-1">운동시설</span></a>
+                        <a th:if="${list.building_type_num}==7"><span class="badge bg-label-dark me-1">교육시설</span></a>
+                        <a th:if="${list.building_type_num}==8"><span class="badge bg-label-warning me-1">연구단지</span></a>
+                        <a th:if="${list.building_type_num}==9"><span class="badge bg-label-primary me-1">발전소</span></a>
+                        <a th:if="${list.building_type_num}==10"><span class="badge bg-label-dark me-1">종교시설</span></a>               
+                       </td>
+                       <td th:text="${list.title}"  style="text-align:center;"></td>
+                       <td th:text="|${list.building_size}(억)원|" style="text-align:right;"></td>
+                       <td th:text="|${list.area}평|" style="text-align:right;"></td>
+                       <td th:text="|${list.price}(억)원|" style="text-align:right;"></td>
+                          <td  style="text-align:right;">
+                          <div class="dropdown">
+                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                              <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                              <a class="dropdown-item" id="showToastPlacement" th:onclick="|javascript:insertProject(${list.post_num})|"
+                                ><i class="bx bx-edit-alt me-1"></i> 진행하기</a
+                              >
+                              
+                              <a class="dropdown-item" th:onclick="|javascript:deletePost(${list.post_num})|"
+                                ><i class="bx bx-trash me-1"></i> 삭제</a
+                              >
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  <script type="text/javascript">
+					 var tbl = 'exceldown';
+					 var uri = $("#"+tbl).excelexportjs({
+					     containerid: tbl
+					     , datatype: 'table'
+					     , returnUri: true
+					 });
+								    $(document).ready(function () {
+								 
+								        function itoStr($num)
+								        {
+								            $num < 10 ? $num = '0'+$num : $num;
+								            return $num.toString();
+								        }
+								         
+								        var btn = $('#btnExport');
+								        
+								 
+								        btn.on('click', function () {
+								            var dt = new Date();
+								            var year =  itoStr( dt.getFullYear() );
+								            var month = itoStr( dt.getMonth() + 1 );
+								            var day =   itoStr( dt.getDate() );
+								            var hour =  itoStr( dt.getHours() );
+								            var mins =  itoStr( dt.getMinutes() );
+								 
+								            var postfix = year + month + day + "_" + hour + mins;
+								            var fileName = "공고목록_"+ postfix + ".xls";
+								 
+								           
+								 
+								            $(this).attr('download', fileName).attr('href', uri).attr('target', '_blank');
+								        });
+								    });
+					</script>         
+                  </div>
+                </div>
+              </div>
+              <!--/ Contextual Classes -->
+				
+			</div>
+		</div>
+	</div>
+		     <div id="sung" align="right" style="display:none; position:absolute; top:50px; left:1050px; z-index:20;"> 
+                <div		
+                        class="bs-toast toast fade show bg-primary"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                      >
+                        <div class="toast-header">
+                          <i class="bx bx-bell me-2"></i>
+                          <div class="me-auto fw-semibold">공고 담기 완료</div>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                          "공고"상태로 프로젝트 목록에 추가 완료
+                        </div>
+                      </div>
+                      </div> 
+                     <div id="sil" align="right" style="display:none; position:absolute; top:50px; left:1050px; z-index:10;">                     	
+                      <div
+                        class="bs-toast toast fade show bg-danger"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                      >
+                        <div class="toast-header">
+                          <i class="bx bx-bell me-2"></i>
+                          <div class="me-auto fw-semibold">공고 담기 실패</div>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                          이미 프로젝트 목록에 추가 된 공고입니다.
+                        </div>
+                      </div>
+                     </div>
+                     <div id="err" align="right" style="display:none; position:absolute; top:50px; left:1050px; z-index:3;"> 
+                <div		
+                        class="bs-toast toast fade show bg-error"
+                        role="alert"
+                        aria-live="assertive"
+                        aria-atomic="true"
+                      >
+                        <div class="toast-header">
+                          <i class="bx bx-bell me-2"></i>
+                          <div class="me-auto fw-semibold">오류 발생</div>
+                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                          다시 확인 후 추가 해주세요
+                        </div>
+                      </div>
+                      </div>  	           
+                  
+					
+                      
+                
+                      
+	<script src="../assets/vendor/libs/jquery/jquery.js"></script>
+	<script src="../assets/vendor/libs/popper/popper.js"></script>
+	<script src="../assets/vendor/js/bootstrap.js"></script>
+	<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+	<script src="../assets/vendor/js/menu.js"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script src="../assets/js/main.js"></script>
+
+	<!-- Page JS -->
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+	</div>
+	<div id="limitsi" align="right" style="display:none; position:absolute; top:80px; left:500px; z-index:20;"> 
+               		 <div class="card h-100" style="background-color:rgb(210, 210, 255); border:outset 5px;">
+	                    <img class="card-img-top" src="../images/maru_1.png" style="padding-top:30px;width:500px; height:300px;"alt="Card image cap" />
+	                    <div class="card-body">
+	                      <h5 class="card-title" style="text-align:left">"결재전" 프로젝트가 3개입니다.</h5>
+	                      <p class="card-text">
+	                        프로젝트의 결재 후에 새로운 공고를 추가 해주세요
+	                      </p>
+	                      <a th:href="@{/project/allProjectsInfo}" class="btn btn-outline-primary">프로젝트 추가창으로 이동</a>
+	                    </div>
+	                  </div>
+                      </div>      
+                      
+  <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+	<script th:src="@{/assets/vendor/js/jspdf.min.js}"></script>
+	
+
+  
+  <script>
+$(document).ready(function() {
+	$('#savePdf').click(function() { // pdf저장 button id
+		
+	    html2canvas($('#exceldown')[0]).then(function(canvas) { //저장 영역 div id
+		
+	    // 캔버스를 이미지로 변환
+	    var imgData = canvas.toDataURL('image/png');
+		     
+	    var imgWidth = 250; // 이미지 가로 길이(mm) / A4 기준 210mm
+	    var pageHeight = 250;  // 출력 페이지 세로 길이 계산 A4 기준
+	    var imgHeight = canvas.height * imgWidth / canvas.width;
+	    var heightLeft = imgHeight;
+	    var margin = 20; // 출력 페이지 여백설정
+	    var doc = new jsPDF('l', 'mm');
+	    var position = 0;
+	       
+	    // 첫 페이지 출력
+	    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+	    heightLeft -= pageHeight;
+	         
+	    // 한 페이지 이상일 경우 루프 돌면서 출력
+	  //  while (heightLeft >= 20) {
+	  //      position = heightLeft - imgHeight;
+	  //      doc.addPage();
+	//        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+	 //       heightLeft -= pageHeight;
+	//    }
+	 
+	    // 파일 저장
+	    doc.save('공고목록.pdf');
+	});
+	});
+})
+
+
+
+</script>
+
+</body>
+
+</html>

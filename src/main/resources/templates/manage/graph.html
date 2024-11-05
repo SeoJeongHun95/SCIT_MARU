@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마루건설 성장 연혁</title>
+
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
+
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+<!-- Chart code -->
+<script>
+am5.ready(function() {
+
+// Data
+var allData = {
+  "2005": {
+    "CSCEC": 0,
+    "ACS": 0,
+    "Fluor": 0,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 0,
+    "두산중공업": 0,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 0
+  },
+  "2006": {
+    "CSCEC": 4470000,
+    "ACS": 0,
+    "Fluor": 0,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 0,
+    "두산중공업": 0,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 0
+  },
+  "2007": {
+    "CSCEC": 5970054,
+    "ACS": 0,
+    "Fluor": 3675135,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 0,
+    "두산중공업": 0,
+    "Elffage": 980036,
+    "Halla": 4900180,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 0
+  },
+  "2008": {
+    "CSCEC": 7459742,
+    "ACS": 0,
+    "Fluor": 7399354,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 9731610,
+    "두산중공업": 0,
+    "Elffage": 19490059,
+    "Halla": 9865805,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 1946322
+  },
+  "2009": {
+    "CSCEC": 8989854,
+    "ACS": 0,
+    "Fluor": 14949270,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 19932360,
+    "두산중공업": 0,
+    "Elffage": 54763260,
+    "Halla": 14966180,
+    "한진중공업": 0,
+    "POSCO": 248309,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 19878248
+  },
+  "2010": {
+    "CSCEC": 24253200,
+    "ACS": 0,
+    "Fluor": 29299875,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 29533250,
+    "두산중공업": 0,
+    "Elffage": 69299875,
+    "Halla": 26916562,
+    "한진중공업": 0,
+    "POSCO": 488331,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 143932250
+  },
+  "2011": {
+    "CSCEC": 51008911,
+    "ACS": 100000000,
+    "Fluor": 30000000,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 55045618,
+    "두산중공업": 0,
+    "Elffage": 72408233,
+    "Halla": 44357628,
+    "한진중공업": 0,
+    "POSCO": 1944940,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 294493950
+  },
+  "2012": {
+    "CSCEC": 28804331,
+    "ACS": 276000000,
+    "Fluor": 41834525,
+    "Strabag": 0,
+    "삼성엔지니어링": 0,
+    "Lennar": 57893524,
+    "두산중공업": 0,
+    "Elffage": 70133095,
+    "Halla": 47366905,
+    "한진중공업": 0,
+    "POSCO": 3893524,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 0,
+    "삼성물산": 0,
+    "Skanska": 0,
+    "현대건설": 0,
+    "마루건설": 413611440
+  },
+  "2013": {
+    "CSCEC": 0,
+    "ACS": 517750000,
+    "Fluor": 54708063,
+    "Strabag": 166029650,
+    "삼성엔지니어링": 0,
+    "Lennar": 59953290,
+    "두산중공업": 0,
+    "Elffage": 68046710,
+    "Halla": 49941613,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 43250000,
+    "삼성물산": 0,
+    "Skanska": 19532900,
+    "현대건설": 0,
+    "마루건설": 480551990
+  },
+  "2014": {
+    "CSCEC": 0,
+    "ACS": 766000000,
+    "Fluor": 66954600,
+    "Strabag": 170000000,
+    "삼성엔지니어링": 0,
+    "Lennar": 46610848,
+    "두산중공업": 0,
+    "Elffage": 46003536,
+    "Halla": 47609080,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 0,
+    "코오롱글로벌": 92750000,
+    "삼성물산": 47818400,
+    "Skanska": 48691040,
+    "현대건설": 0,
+    "마루건설": 642669824
+  },
+  "2015": {
+    "CSCEC": 0,
+    "ACS": 979750000,
+    "Fluor": 79664888,
+    "Strabag": 170000000,
+    "삼성엔지니어링": 107319100,
+    "Lennar": 0,
+    "두산중공업": 0,
+    "Elffage": 0,
+    "Halla": 45067022,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 146890156,
+    "코오롱글로벌": 160250000,
+    "삼성물산": 118123370,
+    "Skanska": 79195730,
+    "현대건설": 0,
+    "마루건설": 844638200
+  },
+  "2016": {
+    "CSCEC": 0,
+    "ACS": 1170500000,
+    "Fluor": 80000000,
+    "Strabag": 170000000,
+    "삼성엔지니어링": 205654700,
+    "Lennar": 0,
+    "두산중공업": 117500000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 0,
+    "POSCO": 0,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 293482050,
+    "코오롱글로벌": 223675000,
+    "삼성물산": 196523760,
+    "Skanska": 118261880,
+    "현대건설": 300000000,
+    "마루건설": 1065223075
+  },
+  "2017": {
+    "CSCEC": 0,
+    "ACS": 1334000000,
+    "Fluor": 0,
+    "Strabag": 170000000,
+    "삼성엔지니어링": 254859015,
+    "Lennar": 0,
+    "두산중공업": 250000000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 0,
+    "POSCO": 135786956,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 388721163,
+    "코오롱글로벌": 223675000,
+    "삼성물산": 444232415,
+    "Skanska": 154890345,
+    "현대건설": 498750000,
+    "마루건설": 1249451725
+  },
+  "2018": {
+    "CSCEC": 0,
+    "ACS": 1516750000,
+    "Fluor": 0,
+    "Strabag": 170000000,
+    "삼성엔지니어링": 298950015,
+    "Lennar": 0,
+    "두산중공업": 400000000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 0,
+    "POSCO": 163346676,
+    "MCChina": 0,
+    "GS건설": 0,
+    "Obayashi": 475923363,
+    "코오롱글로벌": 304500000,
+    "삼성물산": 660843407,
+    "Skanska": 208716685,
+    "현대건설": 800000000,
+    "마루건설": 1328133360
+  },
+  "2019": {
+    "CSCEC": 0,
+    "ACS": 1753500000,
+    "Fluor": 0,
+    "Strabag": 0,
+    "삼성엔지니어링": 398648000,
+    "Lennar": 0,
+    "두산중공업": 550000000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 143250000,
+    "POSCO": 238972480,
+    "MCChina": 238648000,
+    "GS건설": 0,
+    "Obayashi": 565796720,
+    "코오롱글로벌": 314500000,
+    "삼성물산": 847512320,
+    "Skanska": 281026560,
+    "현대건설": 1000000000,
+    "마루건설": 1399053600
+  },
+  "2020": {
+    "CSCEC": 0,
+    "ACS": 2035750000,
+    "Fluor": 0,
+    "Strabag": 0,
+    "삼성엔지니어링": 495657000,
+    "Lennar": 0,
+    "두산중공업": 750000000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 195000000,
+    "POSCO": 297394200,
+    "MCChina": 0,
+    "GS건설": 239142500,
+    "Obayashi": 593783960,
+    "코오롱글로벌": 328250000,
+    "삼성물산": 921742750,
+    "Skanska": 357569030,
+    "현대건설": 1333333333,
+    "마루건설": 1495657000
+  },
+  "2021": {
+    "CSCEC": 0,
+    "ACS": 1900000000,
+    "Fluor": 0,
+    "Strabag": 0,
+    "삼성엔지니어링": 430000000,
+    "Lennar": 0,
+    "두산중공업": 1000000000,
+    "Elffage": 0,
+    "Halla": 0,
+    "한진중공업": 246500000,
+    "POSCO": 355000000,
+    "MCChina": 0,
+    "GS건설": 500000000,
+    "Obayashi": 624000000,
+    "코오롱글로벌": 329500000,
+    "삼성물산": 1100000000,
+    "Skanska": 421000000,
+    "현대건설": 1433333333,
+    "마루건설": 1750000000
+  }
+};
+
+
+// Create root element
+// https://www.amcharts.com/docs/v5/getting-started/#Root_element
+var root = am5.Root.new("chartdiv");
+
+root.numberFormatter.setAll({
+  numberFormat: "#a",
+
+  // Group only into M (millions), and B (billions)
+  bigNumberPrefixes: [
+    { number: 1e6, suffix: "(억)원" },
+    { number: 1e9, suffix: "(조)원" }
+  ],
+
+  // Do not use small number prefixes at all
+  smallNumberPrefixes: []
+});
+
+var stepDuration = 2000;
+
+
+// Set themes
+// https://www.amcharts.com/docs/v5/concepts/themes/
+root.setThemes([am5themes_Animated.new(root)]);
+
+
+// Create chart
+// https://www.amcharts.com/docs/v5/charts/xy-chart/
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelX: "none",
+  wheelY: "none"
+}));
+
+
+// We don't want zoom-out button to appear while animating, so we hide it at all
+chart.zoomOutButton.set("forceHidden", true);
+
+
+// Create axes
+// https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+var yRenderer = am5xy.AxisRendererY.new(root, {
+  minGridDistance: 20,
+  inversed: true
+});
+// hide grid
+yRenderer.grid.template.set("visible", false);
+
+var yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+  maxDeviation: 0,
+  categoryField: "network",
+  renderer: yRenderer
+}));
+
+var xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+  maxDeviation: 0,
+  min: 0,
+  strictMinMax: true,
+  extraMax: 0.1,
+  renderer: am5xy.AxisRendererX.new(root, {})
+}));
+
+xAxis.set("interpolationDuration", stepDuration / 10);
+xAxis.set("interpolationEasing", am5.ease.linear);
+
+
+// Add series
+// https://www.amcharts.com/docs/v5/charts/xy-chart/series/
+var series = chart.series.push(am5xy.ColumnSeries.new(root, {
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueXField: "value",
+  categoryYField: "network"
+}));
+
+// Rounded corners for columns
+series.columns.template.setAll({ cornerRadiusBR: 5, cornerRadiusTR: 5 });
+
+// Make each column to be of a different color
+series.columns.template.adapters.add("fill", function (fill, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+series.columns.template.adapters.add("stroke", function (stroke, target) {
+  return chart.get("colors").getIndex(series.columns.indexOf(target));
+});
+
+// Add label bullet
+series.bullets.push(function () {
+  return am5.Bullet.new(root, {
+    locationX: 1,
+    sprite: am5.Label.new(root, {
+      text: "{valueXWorking.formatNumber('#.# a')}",
+      fill: root.interfaceColors.get("alternativeText"),
+      centerX: am5.p100,
+      centerY: am5.p50,
+      populateText: true
+    })
+  });
+});
+
+var label = chart.plotContainer.children.push(am5.Label.new(root, {
+  text: "2005",
+  fontSize: "8em",
+  opacity: 0.2,
+  x: am5.p100,
+  y: am5.p100,
+  centerY: am5.p100,
+  centerX: am5.p100
+}));
+
+// Get series item by category
+function getSeriesItem(category) {
+  for (var i = 0; i < series.dataItems.length; i++) {
+    var dataItem = series.dataItems[i];
+    if (dataItem.get("categoryY") == category) {
+      return dataItem;
+    }
+  }
+}
+
+// Axis sorting
+function sortCategoryAxis() {
+  // sort by value
+  series.dataItems.sort(function (x, y) {
+    return y.get("valueX") - x.get("valueX"); // descending
+    //return x.get("valueX") - y.get("valueX"); // ascending
+  });
+
+  // go through each axis item
+  am5.array.each(yAxis.dataItems, function (dataItem) {
+    // get corresponding series item
+    var seriesDataItem = getSeriesItem(dataItem.get("category"));
+
+    if (seriesDataItem) {
+      // get index of series data item
+      var index = series.dataItems.indexOf(seriesDataItem);
+      // calculate delta position
+      var deltaPosition =
+        (index - dataItem.get("index", 0)) / series.dataItems.length;
+      // set index to be the same as series data item index
+      if (dataItem.get("index") != index) {
+        dataItem.set("index", index);
+        // set deltaPosition instanlty
+        dataItem.set("deltaPosition", -deltaPosition);
+        // animate delta position to 0
+        dataItem.animate({
+          key: "deltaPosition",
+          to: 0,
+          duration: stepDuration / 2,
+          easing: am5.ease.out(am5.ease.cubic)
+        });
+      }
+    }
+  });
+  // sort axis items by index.
+  // This changes the order instantly, but as deltaPosition is set, they keep in the same places and then animate to true positions.
+  yAxis.dataItems.sort(function (x, y) {
+    return x.get("index") - y.get("index");
+  });
+}
+
+var year = 2005;
+
+// update data with values each 1.5 sec
+var interval = setInterval(function () {
+  year++;
+
+  if (year > 2021) {
+    clearInterval(interval);
+    clearInterval(sortInterval);
+  }
+
+  updateData();
+}, stepDuration);
+
+var sortInterval = setInterval(function () {
+  sortCategoryAxis();
+}, 100);
+
+function setInitialData() {
+  var d = allData[year];
+
+  for (var n in d) {
+    series.data.push({ network: n, value: d[n] });
+    yAxis.data.push({ network: n });
+  }
+}
+
+function updateData() {
+  var itemsWithNonZero = 0;
+
+  if (allData[year]) {
+    label.set("text", year.toString());
+
+    am5.array.each(series.dataItems, function (dataItem) {
+      var category = dataItem.get("categoryY");
+      var value = allData[year][category];
+
+      if (value > 0) {
+        itemsWithNonZero++;
+      }
+
+      dataItem.animate({
+        key: "valueX",
+        to: value,
+        duration: stepDuration,
+        easing: am5.ease.linear
+      });
+      dataItem.animate({
+        key: "valueXWorking",
+        to: value,
+        duration: stepDuration,
+        easing: am5.ease.linear
+      });
+    });
+
+    yAxis.zoom(0, itemsWithNonZero / yAxis.dataItems.length);
+  }
+}
+
+setInitialData();
+setTimeout(function () {
+  year++;
+  updateData();
+}, 50);
+
+// Make stuff animate on load
+// https://www.amcharts.com/docs/v5/concepts/animations/
+series.appear(1000);
+chart.appear(1000, 100);
+
+}); // end am5.ready()
+</script>
+
+ <link rel="stylesheet" href="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.css">
+ <script type='text/javascript' src='https://uicdn.toast.com/tui.code-snippet/v1.5.0/tui-code-snippet.min.js'></script>
+ <script type='text/javascript' src='https://uicdn.toast.com/tui.chart/latest/raphael.js'></script>
+ <script src="https://uicdn.toast.com/tui.chart/latest/tui-chart.min.js"></script>
+
+</head>
+<body>
+<div class="card" style="background-color:rgb(208, 208, 225); height:150px;" >
+	<center>
+		<img src="../images/maru_logo.png" width="70px" height="70px" style="padding-top : 30px; display:inline-block;"><h1 style="display:inline; color:rgb(153, 153, 255)"> 마루건설 성장 연혁</h1>
+	</center>
+</div>
+
+<div class="card" style="background-color:rgb(240, 240, 245);">
+	<h2>마루건설 매출 변화</h2>
+	<div id="chartdiv"></div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="card" style="background-color:rgb(255, 255, 204);">
+	<h2>건설 분야별 자금</h2>
+	<div id='chart-area' style="padding-left:100px;"></div>
+
+						<script type="text/javascript">
+						 var container = document.getElementById('chart-area');
+						 var data = {
+						categories: ['아파트', '호텔', '지하철', '복합상가', '공연시설', '연구단지', '발전소','특수'],
+						 series: [
+						{
+						name: '매출액[(억)원]',
+						 data: [3134, 921, 1231, 2527, 821, 2952, 3205, 2726]
+						},
+						 {
+						name: '매출 총이익[(억)원]',
+						 data: [360, 128, 132, 249, 97, 315, 367, 298]
+						},
+						{
+						name: '판매&관리비[(억)원]',
+						 data: [-167, -54, -89, -124, -42, -176, -192, -172]
+							},
+						 {
+						name: '당기순이익[(억)원]',
+						 data: [182, 67, 38, 115, 49, 124, 152, 113]
+						}
+						]
+						};
+						 var options = {
+						chart: {
+						width: 1160,
+						 height: 540,
+						 title: '',
+						 format: '1,000'
+						 },
+						 yAxis: {
+						title: '(억)원'
+						 },
+						 xAxis: {
+						title: '공사분야'
+						 },
+						 series: {
+						stackType: 'integer',
+						 barWidth: 60
+						 },
+						 tooltip: {
+						grouped: true
+						 },
+						 legend: {
+						align: 'bottom4000'
+						 }
+						};
+						 var theme = {
+						series: {
+						colors: [
+						'#83b14e', '#458a3f', '#295ba0', '#2a4175', '#289399',
+						 '#289399', '#617178', '#8a9a9a', '#516f7d', '#dddddd'
+						 ]
+						}
+						};
+						
+						 // For apply theme
+						
+						 // tui.chart.registerTheme('myTheme', theme);
+						 // options.theme = 'myTheme';
+						
+						 tui.chart.columnChart(container, data, options);
+						</script>
+														
+			</div>
+</div>
+
+</body>
+</html>

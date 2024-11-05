@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+  xmlns:th="http://thymeleaf.org" 
+  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>마루건설 시스템</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" /> -->
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+  
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="../assets/vendor/css/core_m.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+
+    <!-- Page CSS -->
+
+    <!-- Helpers -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="../assets/js/config.js"></script>
+    <script>
+	    $(document).ready(function(){
+	    	//$('#searchword').on('keyup', printItems);
+	    	print();
+	    });
+	    
+	    function print(){
+	    	printByMaterialnum();
+	    }
+
+	    function printByMaterialnum(){
+	    	$.ajax({
+	    		url:'printByMaterialnum',
+	    		type:'post',
+	    		data: '',
+	    		success:function(item){
+	    			$('#printByMaterialnum').html(printList(item));
+	    		},
+	    		error:function(){
+	    			alert('printByMaterialnum 실패');
+	    		}
+	    	});
+	    }
+
+	    function printList(item){
+	    	let result = '<div class="table-responsive text-nowrap">';
+	    	result += '<table class="table table-hover">';
+	    	result += '<tbody class="table-border-bottom-0">';
+	    	
+	    	for(let i = 0 ; i < item.length; i++){
+	    		result += '<tr>';
+	    		result += '<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>' + item[i].need_material_num +'</strong></td>';
+	    		result += '<td>' + item[i].project_name +'</td>';
+	    		result += '<td>' + item[i].material_name +'</td>';
+	    		result += '<td>' + item[i].count +'</td>';
+	    		result += '<td>' + item[i].price +'</td>';
+	    		result += '<td>' + item[i].commit_date +'</td>';
+	    		result += '</tr>';
+	    	}
+	    	result += '</tbody>'
+                + '</table>'
+            + '</div>';
+            
+            return result;
+	    }
+
+      function material(){
+        location.href="material";
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar layout-without-menu">
+      <div class="layout-container">
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+
+          <!-- 첫줄, 돋보기 부분 하얀 박스를 화면 끝까지 -->
+          <nav
+			class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center  bg-navbar-theme"
+			id="layout-navbar">
+			<div class="app-brand">
+				<a th:href="@{/dashboard}" class="app-brand-link"> <span
+					class="app-brand-logo"> <img src="../images/maru_logo.png"
+						class="maru_logo" alt="">
+				</span> <span class="app-brand-text demo menu-text fw-bolder ms-2">마루건설</span>
+				</a>
+			</div>
+
+			<div class="navbar-nav-right d-flex align-items-center"
+				id="navbar-collapse">
+				<ul class="navbar-nav flex-row align-items-center ms-auto">
+					<!-- Place this tag where you want the button to render. -->
+					<!-- 여기에 넣고싶은 버튼 넣으면 됨. -->
+					<li class="nav-item lh-1 me-3">
+
+					<!-- 환영합니다 넣을 부분 -->	
+						<a>박수연 소장님 환영합니다</a>
+
+
+					</li>
+
+					<!-- 프사 있는 부분 -->
+					<!-- User -->
+					<!-- 눌렀을 때, 내리려면 li안에 dropdown 쓰면 될듯 -->
+					<li class="nav-item navbar-dropdown dropdown-user dropdown"><a
+						class="nav-link dropdown-toggle hide-arrow"
+						href="javascript:void(0);" data-bs-toggle="dropdown"> <!-- online, offline으로 상태 변화가능 -->
+							<div class="avatar avatar-online">
+								<img src="../assets/img/avatars/profile.jpg" alt
+									class="w-px-40 h-auto rounded-circle" />
+							</div>
+					</a>
+
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="#">
+									<div class="d-flex">
+										<div class="flex-shrink-0 me-3">
+											<div class="avatar avatar-online">
+												<img src="../assets/img/avatars/1.png" alt
+													class="w-px-40 h-auto rounded-circle" />
+											</div>
+										</div>
+										<div class="flex-grow-1">
+											<span class="fw-semibold d-block">John Doe</span> <small
+												class="text-muted">Admin</small>
+										</div>
+									</div>
+							</a></li>
+							<!-- 구분자 -->
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-user me-2"></i> <span class="align-middle">My
+										Profile</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <i
+									class="bx bx-cog me-2"></i> <span class="align-middle">Settings</span>
+							</a></li>
+							<li><a class="dropdown-item" href="#"> <span
+									class="d-flex align-items-center align-middle"> <i
+										class="flex-shrink-0 bx bx-credit-card me-2"></i> <span
+										class="flex-grow-1 align-middle">Billing</span> <span
+										class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+								</span>
+							</a></li>
+							<li>
+								<div class="dropdown-divider"></div>
+							</li>
+							<li><a class="dropdown-item" href="auth-login-basic.html">
+									<i class="bx bx-power-off me-2"></i> <span class="align-middle">Log
+										Out</span>
+							</a></li>
+						</ul></li>
+				</ul>
+			</div>
+		</nav>
+		<nav class="layout-navbar navbar container-xxl navbar-detached navbar-example navbar-expand-lg nav_white_custom bg-white mt-3">
+			<div class="container-fluid">
+				<a class="dash_board_custom" href="javascript:void(0)">대시보드</a>
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#navbar-ex-2"
+					aria-controls="navbar-ex-2" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbar-ex-2">
+					<div class="navbar-nav me-auto">
+						<a class="nav-item dash_board_custom" th:href="@{/project/allProjectsInfo}">프로젝트관리</a>
+						<a class="nav-item dash_board_custom" th:href="@{/dashboard/sign}">결재상황</a>
+						<a class="nav-item dash_board_custom" th:href="@{/dashboard/post}">공고현황</a>
+						<a class="nav-item nav-link dropdown-toggle hide-arrow dash_board_custom" data-bs-toggle="dropdown">관리페이지</a>
+						<ul class="dropdown-menu dropdown-menu-mk">
+                           	<li>
+                            	<a th:href="@{/manage/funds}" class="dropdown-item d-flex align-items-center"
+      							><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자금 관리</a>
+                            </li>
+                            <li>
+                              <a th:href="@{/manage/material}" class="dropdown-item d-flex align-items-center"
+                                ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>자재 관리</a>
+                            </li>
+                            <li>
+                              <a th:href="@{/manage/worker}" class="dropdown-item d-flex align-items-center"
+                                ><i class="bx bx-chevron-right scaleX-n1-rtl"></i>인력 관리</a>
+                            </li>
+                       	</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<div class="margin_custom"></div>
+          <!-- / Navbar -->
+
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <div class="col-lg-12 mb-4 order-0">
+                <div class="card mb-4">
+                  <div class="row row-bordered">
+                    <div class="col-md-3">
+                      <h5 class="card-header">요청 자재</h5>
+                      
+                      <div class="card-body">
+                        <div class="row mt-2  d-grid gap-3">
+                          <button class="btn btn-primary btn-xl">전체 요청 자재</button>
+                          <button class="btn btn-primary">둔촌주공아파트재건축</button> 
+                          <button class="btn btn-primary">10호선의정부역건설</button>
+                          <button class="btn btn-primary">태양광발전소코엑스</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-9">
+                      <div class="row">
+                        <div class="col-md-4 mt-2">
+                          <button class="btn rounded-pill btn-outline-secondary" onclick="material()">전체자재</button>
+                          <button class="btn rounded-pill btn-outline-secondary">요청자재</button>
+                        </div>
+                        <div class="demo-inline-spacing mt-3">
+                          <div class="list-group list-group-horizontal-md text-md-center">
+                            <a
+                              class="list-group-item lack-group-width-1 active "
+                              id="num-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >번호</a
+                            >
+                            <a
+                              class="list-group-item lack-group-width-2"
+                              id="projectName-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >프로젝트 명</a
+                            >
+                            <a
+                              class="list-group-item lack-group-width-3"
+                              id="materialName-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >자재이름</a
+                            >
+                            <a
+                              class="list-group-item lack-group-width-4"
+                              id="price-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >가격</a
+                            >
+                            <a
+                              class="list-group-item lack-group-width-5"
+                              id="count-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >수량</a
+                            >
+                            <a
+                              class="list-group-item lack-group-width-6"
+                              id="commitDate-list-item"
+                              data-bs-toggle="list"
+                              href="#"
+                              >투입날짜</a
+                            >
+                          </div>
+                          <div class="tab-content px-0 mt-0">
+                            <div class="tab-pane fade show active" id="horizontal-num">
+                            	<div id="printByMaterialnum"></div>
+                            </div>
+                            <div class="tab-pane fade" id="horizontal-projectName">
+                              <div id="printByProjectName"></div>
+                            </div>
+                            <div class="tab-pane fade" id="horizontal-materialName">
+                              <div id="printByMaterialName"></div>
+                            </div>
+                            <div class="tab-pane fade" id="horizontal-price">
+                              <div id="printByPrice"></div>
+                            </div>
+                            <div class="tab-pane fade" id="horizontal-count">
+                              <div id="printByCount"></div>
+                            </div>
+                            <div class="tab-pane fade" id="horizontal-commitDate">
+                              <div id="printByCount"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                
+              </div>
+              <!--/ Transactions -->
+            </div>
+          </div>
+          <!-- / Content -->
+
+            <!-- Footer -->
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , made with ❤️ by
+                  <a href="#" class="footer-link fw-bolder">TeamMaru</a>
+                </div>
+                <div>
+                  <a href="#" class="footer-link me-4" target="_blank">License</a>
+                  <a href="#" target="_blank" class="footer-link me-4">More Themes</a>
+
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Documentation</a
+                  >
+
+                  <a
+                    href="#"
+                    target="_blank"
+                    class="footer-link me-4"
+                    >Support</a
+                  >
+                </div>
+              </div>
+            </footer>
+            <!-- / Footer -->
+
+            <div class="content-backdrop fade"></div>
+          </div>
+          <!-- Content wrapper -->
+        </div>
+        <!-- / Layout page -->
+      </div>
+
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="../assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../assets/js/dashboards-analytics.js"></script>
+    
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>
